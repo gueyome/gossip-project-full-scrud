@@ -1,4 +1,18 @@
-<h1>Voilà le détail de ce gossip </h1>
-<p>Ce Gossip a pour titre "<%= @gossip.title %>" et a été écrit par <%= link_to "#{@gossip.user.first_name}", user_page_path(@gossip.user.id) %> le <%= @gossip.created_at %> </p>
-<h2>Voilà son contenu </h2>
-<p> <%= @gossip.content %> </p>
+<% if flash[:success] == 'Le Gossip a bien été modifié' %>
+<div class="alert alert-success" role="alert"><%= flash[:success] %></div>
+<% end %>
+
+<h2>Voilà le détail de ce gossip mes amis</h2>
+<br>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-primary">Ce Gossip a pour titre "<%= @gossip.title %>"</li>
+  <li class="list-group-item list-group-item-secondary">Son auteur est <%= link_to "#{@gossip.user.first_name}", user_page_path(@gossip.user.id) %></li>
+  <li class="list-group-item list-group-item-success">Il vient de <%= @gossip.user.city.name %></li>
+  <li class="list-group-item list-group-item-danger">Il l'a écrit le <%= @gossip.created_at %></li>
+  <li class="list-group-item list-group-item-warning">Contenu du Gossip: <%= @gossip.content %></li>
+</ul>
+
+<br>
+<h3>Tu veux supprimer ce Gossip ?</h3>
+<a href="<% gossip_path(@gossip.id) %>" class = "btn btn-danger" data-confirm = "etes vous sure de suppimer?" data-method = "DELETE">Supprimer</a>
+

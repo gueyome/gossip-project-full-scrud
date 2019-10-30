@@ -1,12 +1,24 @@
-<% if flash[:success] == 'Le Gossip a bien été créé' %>
+<% if flash[:success] == 'Le Gossip a bien été créé' || flash[:success] == 'Le Gossip a bien été supprimé' %>
 <div class="alert alert-success" role="alert"><%= flash[:success] %></div>
 <% end %>
 
-<h1>Welcome  </h1>
-<p>BIENVENUE ! Voilà tous les gossips de ces derniers jours, tiens toi prêt ça décoiffe ! </p>
+<div class="jumbotron">
+  <h1 class="display-4">Welcome in The Gossip Project</h1>
+  <p class="lead">BIENVENUE ! Voilà tous les gossips de ces derniers jours, tiens toi prêt ça décoiffe ! </p>
+  <hr class="my-4">
+  <p>Tu peux voir ici la liste de tous les Gossips à jour. Tu peux intéragir comme tu le veux avec !</p>
+  <a class="btn btn-primary btn-lg" href="gossips/new" role="button">Créer un nouveau Gossip</a>
+</div>
 
-<p> <% @gossips.each do |gossip| %>
-      <p> <%= gossip.title %> écrit par <%= gossip.user.first_name %> </p>
-      <p> <%= link_to "accède ici à la page de ce gossip", gossip_path(gossip.id) %>
-      <% end %>
-</p>
+<div class="list-group">
+  <% @gossips.each do |gossip| %>
+  <a href="gossips/<%= gossip.user.id %>" class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1"><%= gossip.title %></h5>
+      <small><%= gossip.updated_at %></small>
+    </div>
+    <p class="mb-1"><%= gossip.content %></p>
+    <small>par <%= gossip.user.first_name %></small>
+  </a>
+  <% end %>
+</div>

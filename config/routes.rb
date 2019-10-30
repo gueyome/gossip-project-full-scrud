@@ -7,5 +7,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # get '/gossip/:index', to: 'welcome#gossip', as: 'gossip_page'
   # New routes to create gossips
-  resources :gossips
+  resources :gossips do
+    resources :comments
+  end
+  resources :cities
 end
