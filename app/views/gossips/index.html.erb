@@ -19,6 +19,11 @@
     </div>
     <p class="mb-1"><%= gossip.content %></p>
     <small>par <%= gossip.user.first_name %></small>
+    <br>
+    <small>a <%= gossip.comments.count %> commentaires </small>
   </a>
   <% end %>
 </div>
+
+
+

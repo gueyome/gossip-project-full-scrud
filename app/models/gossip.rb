@@ -8,4 +8,5 @@ class Gossip < ApplicationRecord
     uniqueness: true,
     length: { in: 3..14 }
   validates :content, presence: true
+
 end
