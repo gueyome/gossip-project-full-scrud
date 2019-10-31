@@ -12,12 +12,12 @@ class User < ApplicationRecord
     length: { minimum: 3 }
   validates :description,
     presence: true,
-    length: { minimum: 10 }
+    length: { minimum: 3 }
   validates :email,
     uniqueness: true,
     presence: true,
     format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "email adress please" }
   validates :age,
     presence: true,
-    numericality: { greater_than: 18 }
+    numericality: { greater_than: 0 }
 end

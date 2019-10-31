@@ -1,0 +1,30 @@
+<% if @comment.errors.any? %>
+<div class="alert alert-danger" role="alert">
+  <p>Nous n'avons pas réussi à modifier le commentaire pour la (ou les) raison(s) suivante(s) :</p>
+  <ul>
+    <% @comment.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<h1>Modifie ton commentaire ici ! </h1>
+
+<%= form_tag url_for(action: 'update'), method: "put" do %>
+
+  <div class="form-group">
+  <%= text_area_tag 'content', @comment.content, class: 'form-control', placeholder: 'Contenu' %>
+  </div>
+
+  <%= submit_tag "Mettre en ligne le Comment", class: 'btn btn-primary' %>
+
+<% end %>
+
+<% puts gossip_comment_path(@gossip.id, @comment.id) %>
+
+<br>
+<h3>Tu veux supprimer ce Comment ?</h3>
+<a href="<%= gossip_comment_path(@gossip.id, @comment.id) %>" class = "btn btn-danger" data-confirm = "Etes vous sure de vouloir suppimer?" data-method = "DELETE">Supprimer</a>
+<br>
+<br>

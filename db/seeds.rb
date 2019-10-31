@@ -6,6 +6,7 @@ require 'faker'
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 Comment.destroy_all
 User.destroy_all
 City.destroy_all
@@ -21,7 +22,7 @@ Tag.destroy_all
 end
 
 20.times do |index|
-  g = Gossip.create(title: Faker::Movie.quote, content: Faker::Verb.ing_form, user_id: User.all.sample.id)
+  g = Gossip.create(title: Faker::Movies::Hobbit.character, content: Faker::Verb.ing_form, user_id: User.all.sample.id)
 end
 
 10.times do |index|
@@ -34,5 +35,7 @@ end
 end
 
 10.times do |index|
-  pm = Comment.create(content: Faker::Movie.quote, user_id: User.all.sample.id, gossip_id: Gossip.all.sample.id )
+  co = Comment.create(content: Faker::Movie.quote, user_id: User.all.sample.id, gossip_id: Gossip.all.sample.id )
 end
+
+anonymous = User.create(first_name: "Anonymous", last_name: Faker::Name.last_name, description: Faker::Movie.quote, email: Faker::Internet.email, age: Faker::Number.between(from: 20, to: 50), city_id: City.all.sample.id)

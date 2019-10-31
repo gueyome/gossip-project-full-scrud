@@ -1,4 +1,4 @@
-<% if flash[:success] == 'Le Gossip a bien été modifié' %>
+<% if flash[:success] == 'Le Gossip a bien été modifié' || flash[:success] == 'Le Commentaire a bien été créé' || flash[:success] == 'Le Commentaire a bien été supprimé' %>
 <div class="alert alert-success" role="alert"><%= flash[:success] %></div>
 <% end %>
 
@@ -14,5 +14,32 @@
 
 <br>
 <h3>Tu veux supprimer ce Gossip ?</h3>
-<a href="<% gossip_path(@gossip.id) %>" class = "btn btn-danger" data-confirm = "etes vous sure de suppimer?" data-method = "DELETE">Supprimer</a>
+<a href="<%= gossip_path(@gossip.id) %>" class = "btn btn-danger" data-confirm = "etes vous sure de suppimer?" data-method = "DELETE">Supprimer</a>
+<br>
+<br>
 
+<h2>Liste des commentaires sur ce gossip</h2>
+<br>
+<div class="list-group">
+  <% @gossip.comments.each do |comment| %>
+  <a href="<%= @gossip.id %>/comments/<%= comment.id %>/edit" class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1"><%= comment.content %></h5>
+      <small><%= comment.updated_at %></small>
+    </div>
+    <small>par <%= comment.user.first_name %></small>
+  </a>
+  <% end %>
+</div>
+
+
+
+<h2>Un commentaire à rajouter sur ce gossip mon ami?</h2>
+<br>
+
+<%= form_for :comment, url: gossip_comments_path(@gossip.id) do |f| %>
+  <div class="form-group">
+  <%= f.text_field :content_form, class: 'form-control', placeholder: 'Contenu' %><br />
+  </div>
+  <%= f.submit 'Ajouter', class: "btn btn-primary" %>
+<% end %>
